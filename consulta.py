@@ -35,7 +35,7 @@ with open('resultado.txt', 'w') as f:
                 f.write(f"[{controle}/{total}] | cnpj: {data['cnpj']} | situacao: {data['situacao']} | nome: {data['nome']}\n")
             else:
                 print("erro!")
-                f.write(f"[{controle}/{total}] | cnpj: {i} | situacao: ERRO! \n")
+                f.write(f"[{controle}/{total}] | cnpj: {i} | situacao: ERRO! | {data['message']}\n")
         controle -= 1
         if controle != 0:
             time.sleep(20.5)
