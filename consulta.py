@@ -7,8 +7,11 @@ import time
 '''
 API de consulta
 '''
-base = 'https://www.receitaws.com.br/v1/cnpj/'
-
+teste = False
+if not(teste):
+    base = 'https://www.receitaws.com.br/v1/cnpj/'
+else:
+    base = 'https://www.receitas.com.br/v1/cnpj/'
 
 cnpj = []
 
@@ -39,7 +42,6 @@ with open('resultado.txt', 'w') as f:
             print(f"[{check['controle']:02}/{check['total']}] - {check['tentativas']:02} - {r.status_code}")
             if r.status_code == requests.codes.ok:
                 data = json.loads(r.text)
-                check['tentativas'] = 2
 
                 if data['status'] == 'OK':
                     print(f"{r.status_code} - {data['nome']}")
@@ -52,6 +54,10 @@ with open('resultado.txt', 'w') as f:
                 if check['controle'] != 0:
                     time.sleep(20.5)
                 break
+
+            if r.status_code == requests.codes.too_many:
+                print('#  muitas requisicoes!')
+                time.sleep(45)
 
             check['tentativas'] += 1
             time.sleep(1)
