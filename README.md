@@ -11,3 +11,7 @@ Depois é só executar o programa e o resultado prévio irá aparecer no shell d
   
 Após isso é gerado um arquivo *resultado.txt* na qual possui a Razão Social e a Situação na receita, caso ocorra um erro é mostrado
 o CNPJ que ocorreu. 
+
+### TODO
+
+Implementar talvez um front para melhor visualização.

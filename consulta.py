@@ -8,10 +8,10 @@ import time
 API de consulta
 '''
 teste = False
-if not(teste):
-    base = 'https://www.receitaws.com.br/v1/cnpj/'
-else:
+if teste:
     base = 'https://www.receitas.com.br/v1/cnpj/'
+else:
+    base = 'https://www.receitaws.com.br/v1/cnpj/'
 
 cnpj = []
 
@@ -39,16 +39,16 @@ with open('resultado.txt', 'w') as f:
     for i in cnpj:
         while not(check['tentativas'] > 4):
             r = requests.get(f'{base}{i}', timeout=5)
-            print(f"[{check['controle']:02}/{check['total']}] - {check['tentativas']:02} - {r.status_code}")
+            print(f"[{check['controle']:02}/{check['total']:02}] - {check['tentativas']:02} - {r.status_code}")
             if r.status_code == requests.codes.ok:
                 data = json.loads(r.text)
 
                 if data['status'] == 'OK':
                     print(f"{r.status_code} - {data['nome']}")
-                    f.write(f"[{check['controle']:02}/{check['total']}] | cnpj: {data['cnpj']} | situacao: {data['situacao']} | nome: {data['nome']}\n")
+                    f.write(f"[{check['controle']:02}/{check['total']:02}] | cnpj: {data['cnpj']} | situacao: {data['situacao']} | nome: {data['nome']} | endereco: {data['logradouro']}-{data['numero']} | complemento: {data['complemento']} | uf: {data['uf']} | municipio: {data['municipio']} | bairro: {data['bairro']}\n")
                 else:
                     print("erro!")
-                    f.write(f"[{check['controle']:02}/{check['total']}] | cnpj: {i} | situacao: ERRO! | {data['message']}\n")
+                    f.write(f"[{check['controle']:02}/{check['total']:02}] | cnpj: {i} | situacao: ERRO! | {data['message']}\n")
 
                 check['controle'] -= 1
                 if check['controle'] != 0:
